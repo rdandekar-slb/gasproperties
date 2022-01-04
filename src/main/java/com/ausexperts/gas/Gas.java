@@ -6,9 +6,12 @@ public class Gas {
     private double moleFractionH2S=0.0;
     //private double moleFractionN2=0.0;
 
-    private double gaszfactor=0.0;
-    private double gasfvf=0.0;
-    private double gasviscosity=0.0;
+    class GasProperties{
+        private double gaszfactor=0.0;
+        private double gasfvf=0.0;
+        private double gasviscosity=0.0;
+    }
+    
 
     Gas(){    }
 
@@ -39,7 +42,7 @@ public class Gas {
     }
     */
 
-    public double getGaszfactor(double pressure, double temperature) {
+    private double getGaszfactor(double pressure, double temperature) {
         double Tpc=168+325*specificGravity-12.5*specificGravity*specificGravity;
         double ppc=677+15.0*specificGravity-37.5*specificGravity*specificGravity;
         double epsilon=120*(Math.pow(moleFractionCO2+moleFractionH2S,0.9)-Math.pow(moleFractionH2S, 1.6))+15*(Math.pow(moleFractionH2S, 0.5)-Math.pow(moleFractionH2S, 4.0));
