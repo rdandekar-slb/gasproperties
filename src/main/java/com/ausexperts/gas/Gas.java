@@ -77,16 +77,23 @@ public class Gas {
             f_rhor=r1*rhor - r2/rhor + r3*rhor*rhor - r4*Math.pow(rhor,5) + r5*(1+a11*rhor*rhor)*rhor*rhor*Math.exp(-a11*rhor*rhor) + 1;
             fprime_rhor=r1 + r2/(rhor*rhor) + 2*r3*rhor - 5*r4*Math.pow(rhor, 4) + 2*r5*rhor*Math.exp(-a11*rhor*rhor)*((1+2*a11*rhor*rhor*rhor) - a11*rhor*rhor*(1+a11*rhor*rhor));
             rhor_new=rhor - f_rhor/fprime_rhor;
-            rhor=rhor_new;
+
             if (Math.abs(rhor - rhor_new) < 1e-12){
+                rhor=rhor_new;
                 break;
             }
+            rhor=rhor_new;
         }
 
 
         return 0.27*ppr/(rhor*Tpr);
     }
 
-    
+    public static void main(String[] args) {
+        Gas g = new Gas(0.65,0,0);
+        System.out.println(g.getGaszfactor(2500, 100));
+    }
+
+
 
 }
