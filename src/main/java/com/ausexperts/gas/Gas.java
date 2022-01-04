@@ -48,8 +48,6 @@ public class Gas {
         double Tpr=(temperature+460)/Tpc;
         double ppr=pressure/ppc;
 
-        double rhor=0.27*ppr/Tpr;
-
         double a1=0.3265;
         double a2=-1.0700;
         double a3=-0.5339;
@@ -63,14 +61,32 @@ public class Gas {
         double a11=0.7210;
 
         double r1=a1 + a2/Tpr + a3/Math.pow(Tpr, 3) + a4/Math.pow(Tpr, 4) + a5/Math.pow(Tpr, 5);
-        double r2=0;
+        double r2=0.27*ppr/Tpr;
+        double r3=a6 + a7/Tpr + a8/(Tpr*Tpr);
+        double r4=a9*(a7/Tpr + a8/(Tpr*Tpr))  ;
+        double r5=a10/(Tpr*Tpr*Tpr);
+        double rhor=0;
+        double rhor_new=0;
+        double f_rhor=0;
+        double fprime_rhor=0;
+        
+        for (int i=0;i<50;i++){
+            if (i==0){
+                rhor=0.27*ppr/Tpr;
+            }
+            f_rhor=r1*rhor - r2/rhor + r3*rhor*rhor - r4*Math.pow(rhor,5) + r5*(1+a11*rhor*rhor)*rhor*rhor*Math.exp(-a11*rhor*rhor) + 1;
+            fprime_rhor=r1 + r2/(rhor*rhor) + 2*r3*rhor - 5*r4*Math.pow(rhor, 4) + 2*r5*rhor*Math.exp(-a11*rhor*rhor)*((1+2*a11*rhor*rhor*rhor) - a11*rhor*rhor*(1+a11*rhor*rhor));
+            rhor_new=rhor - f_rhor/fprime_rhor;
+            rhor=rhor_new;
+            if (Math.abs(rhor - rhor_new) < 1e-12){
+                break;
+            }
+        }
 
 
-
-
-
-        return gaszfactor;
+        return 0.27*ppr/(rhor*Tpr);
     }
 
+    
 
 }
