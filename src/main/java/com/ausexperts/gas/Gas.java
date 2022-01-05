@@ -92,15 +92,24 @@ public class Gas {
             }
             rhor=rhor_new;
         }
-        double apparentMolecularWeight=28.96*this.specificGravity
+        double apparentMolecularWeight=28.96*this.specificGravity;
         this.gaszfactor=0.27*ppr/(rhor*Tpr);
         this.gasdensity=(apparentMolecularWeight*pressure) / (this.gaszfactor*10.73*(temperature+460));
         this.gasfvf=0.02827*this.gaszfactor*(temperature+460)/pressure;
+        double k=(9.4+0.02*apparentMolecularWeight)*Math.pow(temperature+460, 1.5)/(209+19*apparentMolecularWeight+(temperature+460));
+        double x=3.5+(986/(temperature+460))+0.01*apparentMolecularWeight;
+        double y=2.4-0.2*x;
+        this.gasviscosity=0.0001*k*Math.exp(x*Math.pow(this.gasdensity/62.4, y));
+        return;
     }
 
     public static void main(String[] args) {
         Gas g = new Gas(0.72,0,0);
-        System.out.println();
+        g.getproperties(2000 ,  140);
+        System.out.println(g.gaszfactor);
+        System.out.println(g.gasfvf);
+        System.out.println(g.gasviscosity);
+        
     }
 
 
