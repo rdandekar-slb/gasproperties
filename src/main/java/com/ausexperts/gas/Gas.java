@@ -109,6 +109,7 @@ public class Gas {
         System.out.println(g.gaszfactor);
         System.out.println(g.gasfvf);
         System.out.println(g.gasviscosity);
+        System.out.println(g.gasdensity);
         
     }
 
