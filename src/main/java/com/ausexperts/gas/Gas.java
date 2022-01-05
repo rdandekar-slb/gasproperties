@@ -7,9 +7,10 @@ public class Gas {
     //private double moleFractionN2=0.0;
 
 
-        private double gaszfactor=0.0;
-        private double gasfvf=0.0;
-        private double gasviscosity=0.0;
+    public double gaszfactor=0.0;
+    public double gasfvf=0.0;
+    public double gasviscosity=0.0;
+    public double gasdensity=0.0;
 
     
 
@@ -45,13 +46,13 @@ public class Gas {
         this.moleFractionN2 = moleFractionN2;
     }
     */
-
-    private double getGaszfactor(double pressure, double temperature) {
-        double Tpc=168+325*specificGravity-12.5*specificGravity*specificGravity;
-        double ppc=677+15.0*specificGravity-37.5*specificGravity*specificGravity;
-        double epsilon=120*(Math.pow(moleFractionCO2+moleFractionH2S,0.9)-Math.pow(moleFractionH2S, 1.6))+15*(Math.pow(moleFractionH2S, 0.5)-Math.pow(moleFractionH2S, 4.0));
+    
+    private void getproperties(double pressure, double temperature) {
+        double Tpc=168+325*this.specificGravity-12.5*this.specificGravity*this.specificGravity;
+        double ppc=677+15.0*this.specificGravity-37.5*this.specificGravity*this.specificGravity;
+        double epsilon=120*(Math.pow(this.moleFractionCO2+this.moleFractionH2S,0.9)-Math.pow(this.moleFractionH2S, 1.6))+15*(Math.pow(this.moleFractionH2S, 0.5)-Math.pow(this.moleFractionH2S, 4.0));
         Tpc=Tpc-epsilon;
-        ppc=(ppc*Tpc)/(Tpc+moleFractionH2S*(1-moleFractionH2S)*epsilon);
+        ppc=(ppc*Tpc)/(Tpc+this.moleFractionH2S*(1-this.moleFractionH2S)*epsilon);
         double Tpr=(temperature+460)/Tpc;
         double ppr=pressure/ppc;
 
@@ -91,14 +92,15 @@ public class Gas {
             }
             rhor=rhor_new;
         }
-
-
-        return 0.27*ppr/(rhor*Tpr);
+        double apparentMolecularWeight=28.96*this.specificGravity
+        this.gaszfactor=0.27*ppr/(rhor*Tpr);
+        this.gasdensity=(apparentMolecularWeight*pressure) / (this.gaszfactor*10.73*(temperature+460));
+        this.gasfvf=0.02827*this.gaszfactor*(temperature+460)/pressure;
     }
 
     public static void main(String[] args) {
         Gas g = new Gas(0.72,0,0);
-        System.out.println(g.getGaszfactor(2000, 140));
+        System.out.println();
     }
 
 
