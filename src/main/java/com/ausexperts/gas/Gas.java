@@ -6,20 +6,20 @@ public class Gas {
     private double moleFractionH2S=0.0;
     //private double moleFractionN2=0.0;
 
-    class GasProperties{
+
         private double gaszfactor=0.0;
         private double gasfvf=0.0;
         private double gasviscosity=0.0;
-    }
+
     
 
-    Gas(){    }
+    public Gas(){    }
 
-    Gas(double spgr){
+    public Gas(double spgr){
         this.specificGravity=spgr;
     }
 
-    Gas(double spgr, double co2, double h2s /*, double n2*/){
+    public Gas(double spgr, double co2, double h2s /*, double n2*/){
         this.specificGravity=spgr;
         this.moleFractionCO2=co2;
         this.moleFractionH2S=h2s;
@@ -35,6 +35,10 @@ public class Gas {
     }
     public void setMoleFractionH2S(double moleFractionH2S) {
         this.moleFractionH2S = moleFractionH2S;
+    }
+
+    public double getSpecificGravity(){
+        return this.specificGravity;
     }
     /*
     public void setMoleFractionN2(double moleFractionN2) {
@@ -93,8 +97,8 @@ public class Gas {
     }
 
     public static void main(String[] args) {
-        Gas g = new Gas(0.65,0,0);
-        System.out.println(g.getGaszfactor(2500, 100));
+        Gas g = new Gas(0.72,0,0);
+        System.out.println(g.getGaszfactor(2000, 140));
     }
 
 
