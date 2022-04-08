@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 com\ausexperts\App.class
 com\ausexperts\gas\Gas.class
+=======
+com/ausexperts/App.class
+com/ausexperts/gas/Gas.class
+>>>>>>> 664a2e753fd0c0ffabe110a5f8eeb65173200a5e

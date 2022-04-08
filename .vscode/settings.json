@@ -1,4 +1,8 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
+<<<<<<< HEAD
     "maven.view": "flat"
+=======
+    "maven.view": "hierarchical"
+>>>>>>> 664a2e753fd0c0ffabe110a5f8eeb65173200a5e
 }
